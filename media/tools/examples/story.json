@@ -1,0 +1,30 @@
+{
+ "brand": "/home/claude/gearworld-media/assets/brand-bg.jpg",
+ "checked": "2 Nov 2026",
+ "ai_note": "Scene AI-generated from the retailer's product photo",
+ "end_seconds": 1.9,
+ "site": "Construction Gear World",
+ "world_colour": [
+  80,
+  170,
+  255
+ ],
+ "hook": "Already on Makita 18V batteries?",
+ "sub": "Construction Gear World find",
+ "price": "£109.95",
+ "product": "Makita DHP484 brushless combi drill",
+ "note": "Body only: battery and charger not included",
+ "label_y": 1320,
+ "burst_y": 1700,
+ "hook_y": 400,
+ "footer1": "Construction Gear World · link in bio",
+ "offer": "Sold by Tooled Up · price may change",
+ "end_line": "constructiongearworld.com · one of the 13 Gear Worlds",
+ "music": {
+  "mp3": "music/mk158.mp3",
+  "start": 10
+ },
+ "photo": "photos/makita.jpg",
+ "clip": "clips/makita.mp4",
+ "out": "out/tue_s3_construction_makita_v1.mp4"
+}

@@ -1,0 +1,21 @@
+{
+ "out": "out/tue_p1_pets_donut_bed_v1.mp4",
+ "brand": "/home/claude/gearworld-media/assets/brand-bg.jpg",
+ "site": "Pets Gear World", "world_colour": [255, 150, 40],
+ "checked": "2 Nov 2026", "price": "£25.99",
+ "hook": {"text": "Fireworks on Thursday. Where will your dog hide?", "sub": "Pets Gear World find", "y": 400, "seconds": 4.0, "burst_at": 0.9, "burst_y": 1010},
+ "hook_clip": {"clip": "clips/pet.mp4", "start": 0.0},
+ "body_clip": {"clip": "clips/pet.mp4", "start": 4.2, "seconds": 5.0},
+ "product": "Plush donut crate bed",
+ "spec_line": "Soft raised rim · removable washable cover",
+ "product_y": 400,
+ "note_line": "Bonfire Night: Thursday 5 Nov",
+ "note_y": 1030,
+ "footer1": "Pets Gear World · link in bio",
+ "photo": "photos/petbed.jpg",
+ "offer": "Sold by Joybuy · price may change",
+ "end_line": "petsgearworld.com · one of the 13 Gear Worlds",
+ "ai_note": "Scene AI-generated from the retailer's product photo",
+ "end_seconds": 2.5,
+ "music": {"mp3": "music/mk5.mp3", "start": 90}
+}

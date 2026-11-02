@@ -1,0 +1,18 @@
+{
+ "out": "out/tue_p3_hub_giftfinder_v1.mp4",
+ "brand": "/home/claude/gearworld-media/assets/brand-bg.jpg",
+ "meta": "rec/meta.json",
+ "hook": "Who's it for? How much? Done.",
+ "sub": "Gift finder on Gear World Hub",
+ "hook_y": 470, "burst": "Up to £50", "burst_at": 0.7, "burst_y": 1450, "intro": 2.2,
+ "footer1": "Gear World Hub · link in bio",
+ "foot2": "#ad · screen recording of gearworldhub.com, 2 Nov 2026 · prices change",
+ "captions": [{"t": 0.0, "text": "1. Who's it for?"}, {"t": 1.5, "text": "2. Up to how much?"}, {"t": 2.3, "text": "3. Pick an idea"}, {"t": 3.6, "text": "8 ideas up to £50"}],
+ "end_title": "Gift finder",
+ "end_sub": "Who's it for + your budget = ideas from the 13 Gear Worlds",
+ "end_line": "Search, photo search and gift ideas in one hub",
+ "end_small1": "#ad · We may earn a commission · prices on the page change",
+ "end_small2": "Real screen recording of gearworldhub.com",
+ "end_seconds": 2.0,
+ "music": {"mp3": "music/mk91.mp3", "start": 20}
+}

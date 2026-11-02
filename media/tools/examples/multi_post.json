@@ -1,0 +1,70 @@
+{
+ "mode": "multi",
+ "out": "out/tue_p2_womens_beauty_v1.mp4",
+ "brand": "/home/claude/gearworld-media/assets/brand-bg.jpg",
+ "checked": "2 Nov 2026",
+ "hook": {
+  "text": "Spend £30 on beauty, get £5 off",
+  "sub": "Women's Gear World picks",
+  "y": 400,
+  "price": "From £30.78",
+  "burst_at": 0.8,
+  "burst_y": 1560
+ },
+ "hook_clip": {
+  "clip": "clips/c1.mp4",
+  "start": 0.0
+ },
+ "seg_seconds": 2.0,
+ "end_seconds": 2.6,
+ "title": "Beauty from £30, then £5 off",
+ "offer": "All 4 from Joybuy · code beauty: £5 off a £30+ spend, until 31 Dec 2026 · Joybuy's terms apply",
+ "offer_short": "Code beauty: £5 off a £30+ Joybuy spend",
+ "end_line": "womensgearworld.com · one of the 13 Gear Worlds",
+ "footer1": "Women's Gear World · link in bio",
+ "ai_note": "Scenes AI-generated from the retailer's product photos",
+ "items": [
+  {
+   "clip": "clips/c1.mp4",
+   "start": 3.0,
+   "label": "Moschino Pearl Eau de Parfum, 50ml",
+   "price": "£30.78",
+   "site": "Women's Gear World",
+   "site_short": "Women's Gear World",
+   "photo": "photos/moschino.jpg"
+  },
+  {
+   "clip": "clips/c2.mp4",
+   "start": 0.6,
+   "label": "Michael Kors Sexy Amber Eau de Parfum, 50ml",
+   "price": "£31.94",
+   "site": "Women's Gear World",
+   "site_short": "Women's Gear World",
+   "photo": "photos/mk.jpg"
+  },
+  {
+   "clip": "clips/c3.mp4",
+   "start": 0.6,
+   "label": "Olaplex Rich Hydration Mask, 200ml",
+   "price": "£31.10",
+   "site": "Women's Gear World",
+   "site_short": "Women's Gear World",
+   "photo": "photos/olaplex.jpg",
+   "label_y": 1430,
+   "burst_y": 1680
+  },
+  {
+   "clip": "clips/c4.mp4",
+   "start": 0.6,
+   "label": "L'Occitane Amande Sublime skin oil, 100ml",
+   "price": "£31.40",
+   "site": "Women's Gear World",
+   "site_short": "Women's Gear World",
+   "photo": "photos/loccitane.jpg"
+  }
+ ],
+ "music": {
+  "mp3": "music/mk1012.mp3",
+  "start": 20
+ }
+}
