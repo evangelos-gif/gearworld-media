@@ -114,7 +114,8 @@ def end_single(bg, spec, brand, t):
     pulse = 1 + 0.06 * math.sin(2 * math.pi * t / 0.8)
     y = m.pill(d, W / 2, y + 18, f"{spec['price']} on {spec['site']}", int(52 * pulse), GOLD, NAVY, alpha=a) + 22
     if spec.get("offer"):
-        m.text_block(d, spec["offer"], y, 33, MUTED, bold=False, alpha=a)
+        y = m.text_block(d, spec["offer"], y, 33, MUTED, bold=False, alpha=a)
+    bg.info["end_y"] = y
     d.text((70, H - 210), "Link in bio · gearworldhub.com", font=m.font(46), fill=INK + (a,))
     d.text((70, H - 140), f"#ad · We may earn a commission · price checked {spec['checked']}, may change", font=m.font(27, False), fill=MUTED + (a,))
     d.text((70, H - 96), spec.get("ai_note", "Scene AI-generated from the retailer's product photo"), font=m.font(26, False), fill=MUTED + (a,))
