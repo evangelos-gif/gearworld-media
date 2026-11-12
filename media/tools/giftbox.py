@@ -37,7 +37,7 @@ def _with_alpha(im, a):
     im = im.copy(); al = im.getchannel("A").point(lambda v: v * a // 255); im.putalpha(al); return im
 
 
-def draw(bg, top, t, a, site_line, bottom_limit=1606, site_y=1626):
+def draw(bg, top, t, a, site_line, bottom_limit=1606, site_y=1626, verb="Comment"):
     """Draw the box on bg (RGBA) starting at y=top. Shrinks to fit above bottom_limit.
     t = seconds into the end card (for the pop-in and the border pulse), a = alpha 0-255."""
     full_h = 198
@@ -55,11 +55,11 @@ def draw(bg, top, t, a, site_line, bottom_limit=1606, site_y=1626):
                         outline=border + (a,), width=max(3, int(5 * s)))
     # line 1: 💬 Comment GIFT
     f1 = m.font(int(62 * s * pop)); e1 = emoji("\U0001F4AC", int(54 * s * pop))
-    w_c = d.textlength("Comment ", font=f1); w_g = d.textlength("GIFT", font=f1); gap = 16 * s
+    w_c = d.textlength(verb + " ", font=f1); w_g = d.textlength("GIFT", font=f1); gap = 16 * s
     tw = e1.width + gap + w_c + w_g; x = cx - tw / 2; ty = y0 + bh * 0.12
     bg.alpha_composite(_with_alpha(e1, a), (int(x), int(ty + 8 * s)))
     x += e1.width + gap
-    d.text((x, ty), "Comment ", font=f1, fill=INK + (a,)); d.text((x + w_c, ty), "GIFT", font=f1, fill=GOLD + (a,))
+    d.text((x, ty), verb + " ", font=f1, fill=INK + (a,)); d.text((x + w_c, ty), "GIFT", font=f1, fill=GOLD + (a,))
     # line 2: and we'll DM you our Gift Finder 🎁
     f2 = m.font(int(36 * s * pop)); e2 = emoji("\U0001F381", int(38 * s * pop)); txt = "and we'll DM you our Gift Finder"
     w2 = d.textlength(txt, font=f2); tw2 = w2 + 12 * s + e2.width; x2 = cx - tw2 / 2; ty2 = y0 + bh * 0.58
