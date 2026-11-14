@@ -6,7 +6,8 @@ Colours: navy / gold / orange / blue / white only (never red or green).
 Usage: python3 pin_image.py spec.json
 spec: {"photo": path or https URL, "headline": "Cordless impact wrench for wheel nuts", "product": "Einhell ... ",
        "price": "£122.95", "site": "Construction Gear World", "seller": "Tooled Up", "checked": "14 Nov 2026",
-       "out": "out.jpg"}"""
+       "out": "out.jpg"}
+Optional: "pill" (replaces the price pill text) and "small" (replaces the seller/price-check line), e.g. for a Hub pin."""
 import io, json, os, subprocess, sys
 from PIL import Image, ImageDraw, ImageOps
 import importlib.util
@@ -65,10 +66,10 @@ def main():
         w = d.textlength(ln, font=fp); d.text(((PW - w) / 2, y), ln, font=fp, fill=INK); y += 50
     # price pill
     y += 14
-    y = m.pill(d, PW / 2, y, f'{s["price"]} on {s["site"]}', 46, GOLD, NAVY) + 26
+    y = m.pill(d, PW / 2, y, s.get("pill") or f'{s["price"]} on {s["site"]}', 46, GOLD, NAVY) + 26
     # small print and site line
     fs = m.font(26, False)
-    sp = f'Sold by {s["seller"]} (not by Gear World) · price checked {s["checked"]}, may change'
+    sp = s.get("small") or f'Sold by {s["seller"]} (not by Gear World) · price checked {s["checked"]}, may change'
     for ln in lines(d, sp, fs, PW - 140, 2):
         w = d.textlength(ln, font=fs); d.text(((PW - w) / 2, y), ln, font=fs, fill=MUTED); y += 34
     fl = m.font(30); site_line = gb.site_line_for(s["site"])
