@@ -10,7 +10,8 @@ Usage: python3 patch_date.py in.mp4 out.mp4 "5 Nov 2026" "14 Nov 2026" """
 import os, subprocess, sys
 import numpy as np, cv2
 from PIL import Image, ImageDraw, ImageFont
-W, H = 1080, 1920
+W, H = 1080, 1920                # set from the input in main(); 1000x1500 Pinterest cuts (pin23) are the 9:16 reel scaled by S
+S = 1.0
 MUTED = (190, 198, 212)
 FONT = "/usr/share/fonts/opentype/inter/Inter-Medium.otf"
 Y0, X1 = H - 360, W              # search region: y >= Y0, x < X1
@@ -18,9 +19,9 @@ THRESH = 0.55
 
 def lines(old, new):
     return [  # (old, new, sizes to try, alpha)
-        (f"#ad · price checked {old}, may change", f"#ad · price checked {new}, may change", np.arange(22, 34.1, 0.5), 230),
+        (f"#ad · price checked {old}, may change", f"#ad · price checked {new}, may change", np.arange(22, 34.1, 0.5) * S, 230),
         (f"#ad · We may earn a commission · price checked {old}, may change",
-         f"#ad · We may earn a commission · price checked {new}, may change", np.arange(24, 30.1, 0.5), 255),
+         f"#ad · We may earn a commission · price checked {new}, may change", np.arange(24, 30.1, 0.5) * S, 255),
     ]
 
 def template(text, size):
@@ -29,14 +30,17 @@ def template(text, size):
     return np.array(im), l - 1, t - 1
 
 def main():
+    global W, H, S, Y0, X1
     src, out, old, new = sys.argv[1:5]
+    W, H = map(int, subprocess.check_output(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height", "-of", "csv=p=0", src]).decode().strip().split(","))
+    S = min(W / 1080, H / 1920); Y0, X1 = H - int(round(360 * S)), W
     fps = eval(subprocess.check_output(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=r_frame_rate", "-of", "csv=p=0", src]).decode().strip())
-    raw = subprocess.check_output(["ffmpeg", "-v", "error", "-i", src, "-f", "rawvideo", "-pix_fmt", "rgb24", "-"])
+    raw = subprocess.check_output(["ffmpeg", "-nostdin", "-v", "error", "-i", src, "-f", "rawvideo", "-pix_fmt", "rgb24", "-"])
     frames = np.frombuffer(raw, np.uint8).reshape(-1, H, W, 3)
     specs = []
     for ot, nt, sizes, alpha in lines(old, new):
         specs.append(dict(old=ot, new=nt, alpha=alpha, tpl=[(float(s),) + template(ot, float(s)) for s in sizes]))
-    enc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(fps), "-i", "-",
+    enc = subprocess.Popen(["ffmpeg", "-nostdin", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(fps), "-i", "-",
                             "-i", src, "-map", "0:v", "-map", "1:a?", "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p",
                             "-c:a", "copy", "-shortest", "-movflags", "+faststart", out], stdin=subprocess.PIPE)
     counts = [0, 0]; log = []
@@ -75,7 +79,7 @@ def main():
             if fi < 14 or fi % 60 == 0: log.append(f"f{fi}:{'F' if k == 0 else 'E'} s={size} x={x} y={y} c={best[0]:.2f}")
         enc.stdin.write(img.tobytes())
     enc.stdin.close(); enc.wait()
-    print(f"{os.path.basename(out)}: frames={len(frames)} footer-patched={counts[0]} endcard-patched={counts[1]}")
+    print(f"{os.path.basename(out)} {W}x{H}: frames={len(frames)} footer-patched={counts[0]} endcard-patched={counts[1]}")
     print("   " + " | ".join(log[:18]))
 
 if __name__ == "__main__":
