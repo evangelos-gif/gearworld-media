@@ -84,7 +84,13 @@ def main():
         y = m.text_block(d, s["end_sub"], y + 30, 44, GOLD, alpha=a)
         pulse = 1 + 0.05 * math.sin(2 * math.pi * t / 0.8)
         y = m.pill(d, W / 2, y + 60, "gearworldhub.com", int(64 * pulse), GOLD, NAVY, alpha=a)
-        m.text_block(d, s["end_line"], y + 50, 40, INK, alpha=a)
+        if s.get("gift_box"):   # Instagram: pilot-style "Comment GIFT" box (11 Nov 2026)
+            import importlib.util as _iu
+            _g = _iu.spec_from_file_location("gb", os.path.join(os.path.dirname(os.path.abspath(__file__)), "giftbox.py")); gb = _iu.module_from_spec(_g); _g.loader.exec_module(gb)
+            top = y + 50; gb.draw(bg, top, t, a, s.get("gift_site_line", "gearworldhub.com · all 13 Gear Worlds in one search"),
+                                  bottom_limit=top + 198, site_y=top + 222)
+        else:
+            m.text_block(d, s["end_line"], y + 50, 40, INK, alpha=a)
         d.text((70, H - 205), "Link in bio · gearworldhub.com", font=m.font(44), fill=INK + (a,))
         d.text((70, H - 140), s["end_small1"], font=m.font(26, False), fill=MUTED + (a,))
         d.text((70, H - 98), s["end_small2"], font=m.font(25, False), fill=MUTED + (a,))

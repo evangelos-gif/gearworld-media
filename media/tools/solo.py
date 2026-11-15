@@ -8,6 +8,7 @@ import os as _os
 _HERE = _os.path.dirname(_os.path.abspath(__file__))
 _r = importlib.util.spec_from_file_location("r", _os.path.join(_HERE, "reel.py")); r = importlib.util.module_from_spec(_r); _r.loader.exec_module(r)
 _b = importlib.util.spec_from_file_location("b", _os.path.join(_HERE, "biker.py")); b = importlib.util.module_from_spec(_b); _b.loader.exec_module(b)
+_g = importlib.util.spec_from_file_location("gb", _os.path.join(_HERE, "giftbox.py")); gb = importlib.util.module_from_spec(_g); _g.loader.exec_module(gb)
 m = r.m; W, H, FPS = m.W, m.H, m.FPS
 NAVY, INK, MUTED, GOLD, ORANGE, BLUE = m.NAVY, m.INK, m.MUTED, m.GOLD, m.ORANGE, m.BLUE
 
@@ -51,7 +52,10 @@ def main():
     for j in range(n_end):
         bg = r.end_bg(last_src, j, n_end); t = j / FPS
         bg = r.end_single(bg, spec, brand, t)
-        if spec.get("end_line"):
+        if spec.get("gift_box"):   # Instagram: pilot-style "Comment GIFT" box (11 Nov 2026)
+            a = int(255 * m.ease_out(t / 0.25))
+            gb.draw(bg, bg.info.get("end_y", 1385) + 20, t, a, spec.get("gift_site_line") or gb.site_line_for(spec["site"]))
+        elif spec.get("end_line"):
             a = int(255 * m.ease_out(t / 0.25)); m.text_block(ImageDraw.Draw(bg, "RGBA"), spec["end_line"], H - 300, 34, GOLD, alpha=a)
         enc.stdin.write(bg.convert("RGB").tobytes()); k += 1
     enc.stdin.close(); enc.wait()
