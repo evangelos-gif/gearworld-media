@@ -7,7 +7,9 @@ Usage: python3 pin_image.py spec.json
 spec: {"photo": path or https URL, "headline": "Cordless impact wrench for wheel nuts", "product": "Einhell ... ",
        "price": "£122.95", "site": "Construction Gear World", "seller": "Tooled Up", "checked": "14 Nov 2026",
        "out": "out.jpg"}
-Optional: "pill" (replaces the price pill text) and "small" (replaces the seller/price-check line), e.g. for a Hub pin."""
+Optional: "pill" (replaces the price pill text) and "small" (replaces the seller/price-check line), e.g. for a Hub pin.
+Optional for other languages (16 Nov 2026, Polish board): "badge" (default "#ad"), "site_line" (default giftbox.site_line_for),
+"footer" (default "We may earn a commission from qualifying purchases.")."""
 import io, json, os, subprocess, sys
 from PIL import Image, ImageDraw, ImageOps
 import importlib.util
@@ -45,9 +47,10 @@ def main():
     b.putalpha(mask); img.alpha_composite(b, (0, 0))
     d = ImageDraw.Draw(img, "RGBA")
     # #ad badge
-    fa = m.font(30); tw = d.textlength("#ad", font=fa)
+    badge = s.get("badge") or "#ad"
+    fa = m.font(30); tw = d.textlength(badge, font=fa)
     d.rounded_rectangle([PW - 40 - tw - 28, 28, PW - 40, 28 + 52], radius=26, fill=(255, 255, 255, 235))
-    d.text((PW - 40 - tw - 14, 36), "#ad", font=fa, fill=NAVY)
+    d.text((PW - 40 - tw - 14, 36), badge, font=fa, fill=NAVY)
     # headline (search words)
     y = 250
     fh = m.font(64)
@@ -72,9 +75,9 @@ def main():
     sp = s.get("small") or f'Sold by {s["seller"]} (not by Gear World) · price checked {s["checked"]}, may change'
     for ln in lines(d, sp, fs, PW - 140, 2):
         w = d.textlength(ln, font=fs); d.text(((PW - w) / 2, y), ln, font=fs, fill=MUTED); y += 34
-    fl = m.font(30); site_line = gb.site_line_for(s["site"])
+    fl = m.font(30); site_line = s.get("site_line") or gb.site_line_for(s["site"])
     w = d.textlength(site_line, font=fl); d.text(((PW - w) / 2, PH - 78), site_line, font=fl, fill=GOLD)
-    fsm = m.font(22, False); t2 = "We may earn a commission from qualifying purchases."
+    fsm = m.font(22, False); t2 = s.get("footer") or "We may earn a commission from qualifying purchases."
     w = d.textlength(t2, font=fsm); d.text(((PW - w) / 2, PH - 40), t2, font=fsm, fill=MUTED)
     img.convert("RGB").save(s["out"], quality=90)
     print(json.dumps({"out": s["out"], "bottom_of_text": y}))
